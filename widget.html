@@ -22,12 +22,27 @@
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            position: relative;
         }
         
         /* Header compatto */
         .flipbook-header {
             padding: 0.5rem 1rem;
-            background: rgba(255, 255, 255, 0.95);
+            background: #ffffff;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .flipbook-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 12px;
+            background: #ffffff;
             border-top-left-radius: 12px;
             border-top-right-radius: 12px;
         }
@@ -47,7 +62,21 @@
             padding: 0.5rem 1rem;
             border-bottom-left-radius: 12px;
             border-bottom-right-radius: 12px;
-            background: rgba(255, 255, 255, 0.95);
+            background: #ffffff;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .flipbook-footer::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 12px;
+            background: #ffffff;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
         }
         
         .nav-btn {
