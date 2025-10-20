@@ -75,18 +75,11 @@
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
         }
         
-        /* Fullscreen - ridimensiona il libro */
+        /* Fullscreen - rimuovi border radius */
         .flipbook-container:fullscreen,
         .flipbook-container:-webkit-full-screen,
         .flipbook-container:-moz-full-screen {
             border-radius: 0;
-        }
-        
-        .flipbook-container:fullscreen .book,
-        .flipbook-container:-webkit-full-screen .book,
-        .flipbook-container:-moz-full-screen .book {
-            width: 90vw !important;
-            height: 80vh !important;
         }
         
         /* Nascondi elementi non essenziali in widget piccolo */
@@ -204,14 +197,41 @@
                                        document.mozFullScreenElement;
                     
                     if (isFullscreen) {
-                        // Fullscreen: ridimensiona grande
-                        const newWidth = window.innerWidth * 0.9;
-                        const newHeight = window.innerHeight * 0.8;
+                        // Fullscreen: ridimensiona e re-renderizza ad alta qualità
+                        const viewportWidth = window.innerWidth;
+                        const viewportHeight = window.innerHeight - 100;
                         
-                        window.flipbook.book.turn('size', newWidth, newHeight);
+                        // Calcola dimensioni ottimali mantenendo proporzioni A4
+                        let bookWidth = viewportWidth;
+                        let bookHeight = viewportHeight;
+                        
+                        const targetRatio = 2 / 1.414;
+                        const currentRatio = bookWidth / bookHeight;
+                        
+                        if (currentRatio > targetRatio) {
+                            bookWidth = bookHeight * targetRatio;
+                        } else {
+                            bookHeight = bookWidth / targetRatio;
+                        }
+                        
+                        // Ridimensiona Turn.js
+                        window.flipbook.book.turn('size', bookWidth, bookHeight);
+                        
+                        // Pulisci cache e re-renderizza tutte le pagine ad alta qualità
+                        window.flipbook.pageCache = {};
+                        $('.turn-page canvas').remove();
                         
                         // Re-renderizza pagine visibili
                         const currentPage = window.flipbook.book.turn('page');
+                        const pages = window.flipbook.book.turn('view');
+                        
+                        for (let p of pages) {
+                            if (p > 0) {
+                                window.flipbook.renderPage(p);
+                            }
+                        }
+                        
+                        // Pre-carica pagine adiacenti
                         window.flipbook.preloadPages(currentPage);
                     } else {
                         // Esci da fullscreen: re-inizializza
