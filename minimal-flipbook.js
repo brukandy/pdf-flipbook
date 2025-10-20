@@ -62,7 +62,6 @@ class MinimalFlipbook {
             duration: 600,
             pages: this.totalPages,
             display: 'double',
-            page: 2, // Inizia dalla pagina 2 per mostrare doppia pagina (1-2)
             when: {
                 turned: (event, page) => {
                     this.currentPage = page;
@@ -71,9 +70,6 @@ class MinimalFlipbook {
                 }
             }
         });
-        
-        // Imposta pagina corrente a 1 per l'indicatore
-        this.currentPage = 1;
         
         this.preloadAllPages();
     }
