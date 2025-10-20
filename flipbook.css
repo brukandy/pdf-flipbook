@@ -558,13 +558,13 @@ body {
 
 /* Fullscreen */
 .flipbook-container:fullscreen {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #001f3f 0%, #003d7a 100%);
 }
 
 .flipbook-container:-webkit-full-screen {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #001f3f 0%, #003d7a 100%);
 }
 
 .flipbook-container:-moz-full-screen {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #001f3f 0%, #003d7a 100%);
 }
