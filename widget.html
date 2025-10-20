@@ -28,6 +28,8 @@
         .flipbook-header {
             padding: 0.5rem 1rem;
             background: rgba(255, 255, 255, 0.95);
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
         }
         
         .flipbook-title {
@@ -43,6 +45,9 @@
         /* Footer compatto */
         .flipbook-footer {
             padding: 0.5rem 1rem;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            background: rgba(255, 255, 255, 0.95);
         }
         
         .nav-btn {
@@ -68,6 +73,20 @@
         
         .book {
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+        }
+        
+        /* Fullscreen - ridimensiona il libro */
+        .flipbook-container:fullscreen,
+        .flipbook-container:-webkit-full-screen,
+        .flipbook-container:-moz-full-screen {
+            border-radius: 0;
+        }
+        
+        .flipbook-container:fullscreen .book,
+        .flipbook-container:-webkit-full-screen .book,
+        .flipbook-container:-moz-full-screen .book {
+            width: 90vw !important;
+            height: 80vh !important;
         }
         
         /* Nascondi elementi non essenziali in widget piccolo */
@@ -170,5 +189,37 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/3/turn.min.js"></script>
     <script src="flipbook-turn.js"></script>
+    
+    <script>
+        // Fix fullscreen - ridimensiona il libro
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+        document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+        
+        function handleFullscreenChange() {
+            setTimeout(() => {
+                if (window.flipbook && window.flipbook.book) {
+                    const isFullscreen = document.fullscreenElement || 
+                                       document.webkitFullscreenElement || 
+                                       document.mozFullScreenElement;
+                    
+                    if (isFullscreen) {
+                        // Fullscreen: ridimensiona grande
+                        const newWidth = window.innerWidth * 0.9;
+                        const newHeight = window.innerHeight * 0.8;
+                        
+                        window.flipbook.book.turn('size', newWidth, newHeight);
+                        
+                        // Re-renderizza pagine visibili
+                        const currentPage = window.flipbook.book.turn('page');
+                        window.flipbook.preloadPages(currentPage);
+                    } else {
+                        // Esci da fullscreen: re-inizializza
+                        location.reload();
+                    }
+                }
+            }, 100);
+        }
+    </script>
 </body>
 </html>
