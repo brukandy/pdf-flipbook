@@ -60,13 +60,18 @@ class PDFFlipbookTurn {
             this.book.append(`<div class="turn-page" data-page="${i}"></div>`);
         }
         
-        // Calcola dimensioni ottimali
+        // Calcola dimensioni ottimali per formato orizzontale
         const viewportWidth = window.innerWidth;
-        const viewportHeight = window.innerHeight - 200; // Spazio per header/footer
+        const viewportHeight = window.innerHeight - 150; // Spazio per header/footer
         
-        // Dimensioni libro (doppia pagina)
-        const bookWidth = Math.min(viewportWidth * 0.8, 1200);
-        const bookHeight = Math.min(viewportHeight * 0.8, 700);
+        // Forza formato orizzontale (16:9 ratio)
+        let bookWidth = Math.min(viewportWidth * 0.95, 1600);
+        let bookHeight = Math.min(viewportHeight * 0.85, bookWidth * 0.6);
+        
+        // Assicura che sia sempre orizzontale
+        if (bookHeight > bookWidth * 0.7) {
+            bookHeight = bookWidth * 0.6;
+        }
         
         console.log('📐 Dimensioni libro:', bookWidth, 'x', bookHeight);
         
@@ -135,9 +140,9 @@ class PDFFlipbookTurn {
             const containerWidth = this.book.turn('size').width / 2; // Metà per doppia pagina
             const containerHeight = this.book.turn('size').height;
             
-            // Calcola scala per contenere tutto senza tagliare
-            const scaleX = (containerWidth - 20) / viewport.width; // -20 per padding
-            const scaleY = (containerHeight - 20) / viewport.height; // -20 per padding
+            // Calcola scala per riempire il più possibile
+            const scaleX = containerWidth / viewport.width;
+            const scaleY = containerHeight / viewport.height;
             const scale = Math.min(scaleX, scaleY); // Usa min per contenere tutto
             
             const scaledViewport = page.getViewport({ scale: scale });

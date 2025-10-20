@@ -1,0 +1,56 @@
+🚀 ISTRUZIONI PER CARICARE SU GITHUB
+=====================================
+
+✅ Git è già inizializzato e i file sono pronti!
+
+PROSSIMI PASSI:
+
+1️⃣ CREA REPOSITORY SU GITHUB
+   - Vai su https://github.com/new
+   - Nome: pdf-flipbook (o quello che vuoi)
+   - Tipo: Public
+   - NON aggiungere README o .gitignore
+   - Clicca "Create repository"
+
+2️⃣ COLLEGA E CARICA
+   Copia il tuo username GitHub e esegui nel terminale:
+
+   cd /Users/brunolorenzon/CascadeProjects/windsurf-project/pdf-flipbook
+   
+   git remote add origin https://github.com/TUO-USERNAME/pdf-flipbook.git
+   git branch -M main
+   git push -u origin main
+
+   ⚠️ SOSTITUISCI "TUO-USERNAME" con il tuo vero username!
+
+3️⃣ ATTIVA GITHUB PAGES
+   - Vai sul repository GitHub
+   - Settings > Pages
+   - Source: main branch
+   - Save
+   - Aspetta 2 minuti
+
+4️⃣ IL TUO FLIPBOOK SARÀ SU:
+   https://TUO-USERNAME.github.io/pdf-flipbook/
+
+5️⃣ EMBED SU LEARNWORLDS
+   Usa questo codice (sostituisci TUO-USERNAME):
+
+   <div style="width: 100%; max-width: 1400px; margin: 0 auto;">
+       <iframe 
+           src="https://TUO-USERNAME.github.io/pdf-flipbook/index.html"
+           style="width: 100%; height: 800px; border: none; border-radius: 12px;"
+           allowfullscreen>
+       </iframe>
+   </div>
+
+📝 TESTARE L'EMBED LOCALMENTE:
+   Apri: http://localhost:8000/embed-example.html
+
+🔄 AGGIORNARE IL PDF:
+   1. Sostituisci remflipbook-copertina.pdf
+   2. git add .
+   3. git commit -m "Update PDF"
+   4. git push
+
+✅ FATTO!

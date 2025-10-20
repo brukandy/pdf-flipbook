@@ -100,17 +100,15 @@ body {
     justify-content: center;
     position: relative;
     overflow: hidden;
-    padding: 10px;
+    padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
 .turn-page canvas {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
-    object-fit: contain; /* Mostra tutto il contenuto senza tagliare */
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
     display: block;
 }
 
