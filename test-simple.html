@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test PDF Semplice</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+        }
+        
+        #container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        #status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+        
+        #pdfCanvas {
+            border: 2px solid #ddd;
+            max-width: 100%;
+            display: block;
+            margin: 20px auto;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background: #1976d2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        button:hover {
+            background: #1565c0;
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        #pageInfo {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>🧪 Test PDF Semplice</h1>
+        <div id="status">Inizializzazione...</div>
+        
+        <div id="pageInfo"></div>
+        
+        <canvas id="pdfCanvas"></canvas>
+        
+        <div class="controls">
+            <button id="prevBtn" disabled>← Precedente</button>
+            <button id="nextBtn" disabled>Successiva →</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        // Configurazione
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        
+        const pdfUrl = 'remflipbook-copertina.pdf';
+        let pdfDoc = null;
+        let currentPage = 1;
+        let totalPages = 0;
+        
+        const canvas = document.getElementById('pdfCanvas');
+        const ctx = canvas.getContext('2d');
+        const statusDiv = document.getElementById('status');
+        const pageInfo = document.getElementById('pageInfo');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        
+        function updateStatus(message, isError = false) {
+            statusDiv.textContent = message;
+            statusDiv.style.background = isError ? '#ffebee' : '#e3f2fd';
+            statusDiv.style.color = isError ? '#c62828' : '#1976d2';
+            console.log(message);
+        }
+        
+        async function renderPage(pageNum) {
+            try {
+                updateStatus(`Rendering pagina ${pageNum}...`);
+                
+                const page = await pdfDoc.getPage(pageNum);
+                const viewport = page.getViewport({ scale: 1.5 });
+                
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+                
+                console.log('Canvas dimensions:', canvas.width, 'x', canvas.height);
+                
+                const renderContext = {
+                    canvasContext: ctx,
+                    viewport: viewport
+                };
+                
+                await page.render(renderContext).promise;
+                
+                updateStatus(`✅ Pagina ${pageNum} di ${totalPages} renderizzata con successo!`);
+                pageInfo.textContent = `Pagina ${pageNum} / ${totalPages}`;
+                
+                // Aggiorna pulsanti
+                prevBtn.disabled = pageNum === 1;
+                nextBtn.disabled = pageNum === totalPages;
+                
+            } catch (error) {
+                updateStatus(`❌ Errore nel rendering: ${error.message}`, true);
+                console.error('Errore dettagliato:', error);
+            }
+        }
+        
+        async function loadPDF() {
+            try {
+                updateStatus('📥 Caricamento PDF...');
+                
+                pdfDoc = await pdfjsLib.getDocument(pdfUrl).promise;
+                totalPages = pdfDoc.numPages;
+                
+                updateStatus(`✅ PDF caricato! Totale pagine: ${totalPages}`);
+                console.log('PDF caricato con successo:', totalPages, 'pagine');
+                
+                // Renderizza la prima pagina
+                await renderPage(1);
+                
+            } catch (error) {
+                updateStatus(`❌ Errore nel caricamento: ${error.message}`, true);
+                console.error('Errore dettagliato:', error);
+            }
+        }
+        
+        // Event listeners
+        prevBtn.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderPage(currentPage);
+            }
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderPage(currentPage);
+            }
+        });
+        
+        // Carica il PDF all'avvio
+        loadPDF();
+    </script>
+</body>
+</html>

@@ -1,0 +1,572 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: linear-gradient(135deg, #001f3f 0%, #003d7a 100%);
+    overflow: hidden;
+}
+
+.flipbook-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* Header */
+.flipbook-header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+.flipbook-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2d3748;
+}
+
+.flipbook-controls {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.control-btn {
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    color: #4a5568;
+}
+
+.control-btn:hover {
+    background: #f7fafc;
+    border-color: #667eea;
+    color: #667eea;
+    transform: translateY(-2px);
+}
+
+.control-btn:active {
+    transform: translateY(0);
+}
+
+/* Viewer principale */
+.flipbook-viewer {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 2rem;
+}
+
+.flipbook-stage {
+    perspective: 2000px;
+    perspective-origin: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.book {
+    position: relative;
+    margin: 0 auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+/* Turn.js pages */
+.turn-page {
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 10px;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.turn-page canvas {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain; /* Mostra tutto il contenuto senza tagliare */
+    display: block;
+}
+
+/* Pagine del libro */
+.page {
+    position: relative;
+    width: 400px;
+    height: 600px;
+    background: white;
+    transform-style: preserve-3d;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    backface-visibility: hidden;
+}
+
+.page.left-page {
+    position: relative;
+    border-right: 1px solid #ddd;
+}
+
+.page.right-page {
+    position: relative;
+    border-left: 1px solid #ddd;
+}
+
+.page.flipping-page {
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Effetto ombra durante il flip */
+.page.flipping-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.page.center {
+    position: relative;
+    left: 0;
+}
+
+.page.left {
+    position: absolute;
+    left: -400px;
+}
+
+.page.right {
+    position: absolute;
+    left: 0;
+}
+
+.page.flipping {
+    z-index: 10;
+}
+
+.page.flipped {
+    transform: rotateY(-180deg);
+}
+
+.page-content {
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    overflow: visible;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.page-content canvas {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.page-number {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    font-size: 0.875rem;
+    color: #718096;
+    font-weight: 500;
+}
+
+/* Frecce di navigazione */
+.nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    z-index: 50;
+    color: #4a5568;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.nav-arrow:hover {
+    background: white;
+    transform: translateY(-50%) scale(1.1);
+    color: #667eea;
+}
+
+.nav-arrow:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.nav-arrow:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.nav-prev {
+    left: 2rem;
+}
+
+.nav-next {
+    right: 2rem;
+}
+
+/* Footer */
+.flipbook-footer {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+.page-navigation {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.page-input-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: white;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: 2px solid #e2e8f0;
+}
+
+#pageInput {
+    width: 60px;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    text-align: center;
+    font-weight: 600;
+    color: #2d3748;
+}
+
+#pageTotal {
+    color: #718096;
+    font-weight: 500;
+}
+
+.nav-btn {
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s;
+    color: #4a5568;
+    font-weight: 500;
+}
+
+.nav-btn:hover {
+    background: #f7fafc;
+    border-color: #667eea;
+    color: #667eea;
+    transform: translateY(-2px);
+}
+
+.nav-btn:active {
+    transform: translateY(0);
+}
+
+/* Pannello miniature - NASCOSTO */
+.thumbnails-panel {
+    display: none !important;
+}
+
+.thumbnails-header {
+    padding: 1.5rem;
+    border-bottom: 2px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.thumbnails-header h3 {
+    font-size: 1.25rem;
+    color: #2d3748;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #718096;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.close-btn:hover {
+    color: #2d3748;
+}
+
+.thumbnails-grid {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    align-content: start;
+}
+
+.thumbnail {
+    aspect-ratio: 2/3;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    background: #f7fafc;
+}
+
+.thumbnail:hover {
+    border-color: #667eea;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+.thumbnail.active {
+    border-color: #667eea;
+    border-width: 3px;
+}
+
+.thumbnail canvas {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.thumbnail-number {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Loading overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    gap: 1rem;
+}
+
+.loading-overlay.hidden {
+    display: none;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #e2e8f0;
+    border-top-color: #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-overlay p {
+    font-size: 1.125rem;
+    color: #4a5568;
+    font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .page {
+        width: 300px;
+        height: 450px;
+    }
+    
+    .page.left {
+        left: -300px;
+    }
+    
+    .nav-arrow {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .nav-prev {
+        left: 1rem;
+    }
+    
+    .nav-next {
+        right: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .flipbook-header {
+        padding: 0.75rem 1rem;
+    }
+    
+    .flipbook-title {
+        font-size: 1.125rem;
+    }
+    
+    .flipbook-viewer {
+        padding: 1rem;
+    }
+    
+    .page {
+        width: 250px;
+        height: 375px;
+    }
+    
+    .page.left {
+        left: -250px;
+    }
+    
+    .nav-arrow {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .thumbnails-panel {
+        width: 280px;
+        right: -280px;
+    }
+}
+
+/* Effetti 3D avanzati */
+.page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.1) 0%, transparent 10%);
+    opacity: 0;
+    transition: opacity 0.8s;
+    pointer-events: none;
+}
+
+.page.flipping::before {
+    opacity: 1;
+}
+
+/* Ombra dinamica */
+.book::after {
+    content: '';
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 30px;
+    background: radial-gradient(ellipse, rgba(0, 0, 0, 0.3) 0%, transparent 70%);
+    filter: blur(10px);
+}
+
+/* Scrollbar personalizzata */
+.thumbnails-grid::-webkit-scrollbar {
+    width: 8px;
+}
+
+.thumbnails-grid::-webkit-scrollbar-track {
+    background: #f7fafc;
+}
+
+.thumbnails-grid::-webkit-scrollbar-thumb {
+    background: #cbd5e0;
+    border-radius: 4px;
+}
+
+.thumbnails-grid::-webkit-scrollbar-thumb:hover {
+    background: #a0aec0;
+}
+
+/* Animazioni */
+@keyframes pageFlip {
+    0% {
+        transform: rotateY(0deg);
+    }
+    100% {
+        transform: rotateY(-180deg);
+    }
+}
+
+/* Fullscreen */
+.flipbook-container:fullscreen {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.flipbook-container:-webkit-full-screen {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.flipbook-container:-moz-full-screen {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}

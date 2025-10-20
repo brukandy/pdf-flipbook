@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo PDF Flipbook</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .demo-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .demo-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+        }
+        
+        .demo-header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .demo-header p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+        }
+        
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .demo-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+        
+        .demo-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .demo-card h2 {
+            color: #2d3748;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .demo-card p {
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .demo-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .demo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .features-section {
+            background: white;
+            border-radius: 16px;
+            padding: 3rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            margin-bottom: 2rem;
+        }
+        
+        .features-section h2 {
+            text-align: center;
+            color: #2d3748;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-item {
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-item h3 {
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-item p {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+        
+        .code-section {
+            background: #2d3748;
+            color: #e2e8f0;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .code-section h2 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+        
+        .code-block {
+            background: #1a202c;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .demo-header h1 {
+                font-size: 2rem;
+            }
+            
+            .features-section {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <div class="demo-header">
+            <h1>📚 PDF Flipbook Interattivo</h1>
+            <p>Trasforma i tuoi PDF in esperienze interattive coinvolgenti</p>
+        </div>
+        
+        <div class="demo-grid">
+            <div class="demo-card">
+                <h2>🎯 Flipbook Completo</h2>
+                <p>Visualizza il flipbook con tutte le funzionalità: navigazione, zoom, miniature e molto altro.</p>
+                <a href="index.html" class="demo-btn" target="_blank">Apri Demo →</a>
+            </div>
+            
+            <div class="demo-card">
+                <h2>🌐 Versione Embed</h2>
+                <p>Vedi come appare il flipbook quando viene embeddato in una pagina, perfetto per LearnWorlds.</p>
+                <a href="embed.html" class="demo-btn" target="_blank">Vedi Embed →</a>
+            </div>
+            
+            <div class="demo-card">
+                <h2>📖 Documentazione</h2>
+                <p>Guida completa all'installazione, personalizzazione e integrazione su LearnWorlds.</p>
+                <a href="README.md" class="demo-btn" target="_blank">Leggi Docs →</a>
+            </div>
+        </div>
+        
+        <div class="features-section">
+            <h2>✨ Caratteristiche Principali</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Effetto 3D Realistico</h3>
+                    <p>Animazione fluida di pagina che si gira come un vero libro</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">📱</div>
+                    <h3>Completamente Responsive</h3>
+                    <p>Funziona perfettamente su desktop, tablet e smartphone</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">👆</div>
+                    <h3>Touch & Swipe</h3>
+                    <p>Supporto completo per dispositivi touch con gesture intuitive</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">⌨️</div>
+                    <h3>Keyboard Navigation</h3>
+                    <p>Naviga velocemente con le frecce della tastiera</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Zoom Avanzato</h3>
+                    <p>Ingrandisci e riduci per vedere ogni dettaglio</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">📑</div>
+                    <h3>Pannello Miniature</h3>
+                    <p>Preview di tutte le pagine per navigazione rapida</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">⛶</div>
+                    <h3>Modalità Fullscreen</h3>
+                    <p>Visualizzazione immersiva a schermo intero</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">💾</div>
+                    <h3>Download PDF</h3>
+                    <p>Permetti agli utenti di scaricare il PDF originale</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="code-section">
+            <h2>🚀 Quick Start</h2>
+            <div class="code-block">
+<span style="color: #9f7aea;">// 1. Modifica flipbook.js e inserisci il tuo PDF</span>
+const pdfUrl = '<span style="color: #48bb78;">il-tuo-file.pdf</span>';
+
+<span style="color: #9f7aea;">// 2. Apri index.html nel browser</span>
+
+<span style="color: #9f7aea;">// 3. Per embeddare su LearnWorlds:</span>
+&lt;iframe 
+    src="<span style="color: #48bb78;">https://tuo-hosting.com/pdf-flipbook/index.html</span>"
+    style="<span style="color: #48bb78;">width: 100%; height: 800px; border: none;</span>"
+    allowfullscreen&gt;
+&lt;/iframe&gt;
+            </div>
+        </div>
+        
+        <div class="features-section">
+            <h2>🎨 Personalizzazione Facile</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <h3>Colori</h3>
+                    <p>Modifica il gradiente di sfondo e i colori degli accenti nel CSS</p>
+                </div>
+                
+                <div class="feature-item">
+                    <h3>Dimensioni</h3>
+                    <p>Adatta le dimensioni delle pagine alle tue esigenze</p>
+                </div>
+                
+                <div class="feature-item">
+                    <h3>Animazioni</h3>
+                    <p>Personalizza la velocità e lo stile delle transizioni</p>
+                </div>
+                
+                <div class="feature-item">
+                    <h3>Controlli</h3>
+                    <p>Mostra o nascondi i controlli che preferisci</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="demo-card" style="text-align: center; margin-top: 2rem;">
+            <h2>🎓 Perfetto per LearnWorlds</h2>
+            <p>Questo flipbook è stato progettato specificamente per essere facilmente integrato in LearnWorlds. Puoi embeddarlo in qualsiasi corso, lezione o pagina usando un semplice iframe.</p>
+            <p style="margin-top: 1rem;"><strong>Nessuna configurazione complicata richiesta!</strong></p>
+            <div style="margin-top: 2rem;">
+                <a href="embed.html" class="demo-btn">Vedi Esempio di Integrazione →</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

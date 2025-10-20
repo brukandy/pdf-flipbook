@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esempio Embed - PDF Flipbook</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f7fa;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header p {
+            font-size: 1.125rem;
+            color: #718096;
+        }
+        
+        .embed-container {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .flipbook-embed {
+            width: 100%;
+            height: 800px;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .info-box {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: #e3f2fd;
+            border-left: 4px solid #1976d2;
+            border-radius: 8px;
+        }
+        
+        .info-box h3 {
+            color: #1976d2;
+            margin-bottom: 0.5rem;
+        }
+        
+        .info-box p {
+            color: #4a5568;
+            line-height: 1.6;
+        }
+        
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-top: 1rem;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.875rem;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 1.75rem;
+            }
+            
+            .flipbook-embed {
+                height: 600px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Esempio Embed Flipbook</h1>
+            <p>Questo è come apparirà il flipbook embeddato su LearnWorlds</p>
+        </div>
+        
+        <div class="embed-container">
+            <!-- FLIPBOOK EMBED -->
+            <iframe 
+                class="flipbook-embed"
+                src="index.html"
+                allowfullscreen>
+            </iframe>
+        </div>
+        
+        <div class="info-box">
+            <h3>🎯 Come Embeddare su LearnWorlds</h3>
+            <p>Una volta caricato su GitHub Pages, usa questo codice nel tuo corso:</p>
+            
+            <div class="code-block">
+&lt;div style="width: 100%; max-width: 1400px; margin: 0 auto;"&gt;
+    &lt;iframe 
+        src="https://TUO-USERNAME.github.io/pdf-flipbook/index.html"
+        style="width: 100%; height: 800px; border: none; border-radius: 12px;"
+        allowfullscreen&gt;
+    &lt;/iframe&gt;
+&lt;/div&gt;
+            </div>
+        </div>
+        
+        <div class="info-box" style="margin-top: 1rem; background: #fff3e0; border-left-color: #f57c00;">
+            <h3 style="color: #f57c00;">⚠️ Importante</h3>
+            <p><strong>Sostituisci</strong> <code>TUO-USERNAME</code> con il tuo username GitHub!</p>
+            <p style="margin-top: 0.5rem;">Esempio: se il tuo username è <code>mario-rossi</code>, l'URL sarà:</p>
+            <p style="margin-top: 0.5rem;"><code>https://mario-rossi.github.io/pdf-flipbook/index.html</code></p>
+        </div>
+    </div>
+</body>
+</html>

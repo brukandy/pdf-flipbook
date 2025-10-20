@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embed PDF Flipbook - LearnWorlds</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f7fa;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header p {
+            font-size: 1.125rem;
+            color: #718096;
+        }
+        
+        .flipbook-wrapper {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        #flipbook-embed {
+            width: 100%;
+            height: 800px;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .info-section {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .info-section h2 {
+            color: #2d3748;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .info-section p {
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.875rem;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .feature-card {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 1.75rem;
+            }
+            
+            #flipbook-embed {
+                height: 600px;
+            }
+            
+            .flipbook-wrapper {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 PDF Flipbook Interattivo</h1>
+            <p>Sfoglia il tuo PDF come un vero libro digitale</p>
+        </div>
+        
+        <div class="flipbook-wrapper">
+            <iframe 
+                id="flipbook-embed"
+                src="index.html"
+                allowfullscreen>
+            </iframe>
+        </div>
+        
+        <div class="info-section">
+            <h2>🎯 Come Integrare su LearnWorlds</h2>
+            <p>Copia e incolla questo codice nel tuo corso LearnWorlds usando l'elemento "Custom HTML":</p>
+            
+            <div class="code-block">
+&lt;iframe 
+    src="https://tuo-hosting.com/pdf-flipbook/index.html"
+    style="width: 100%; height: 800px; border: none; border-radius: 12px;"
+    allowfullscreen&gt;
+&lt;/iframe&gt;
+            </div>
+            
+            <p><strong>Nota:</strong> Sostituisci <code>tuo-hosting.com</code> con l'URL dove hai caricato i file del flipbook.</p>
+        </div>
+        
+        <div class="info-section">
+            <h2>✨ Caratteristiche</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <h3>🔄 Effetto 3D</h3>
+                    <p>Animazione realistica di pagina che si gira, proprio come un libro vero</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📱 Responsive</h3>
+                    <p>Funziona perfettamente su desktop, tablet e smartphone</p>
+                </div>
+                <div class="feature-card">
+                    <h3>👆 Touch Support</h3>
+                    <p>Swipe per sfogliare le pagine su dispositivi touch</p>
+                </div>
+                <div class="feature-card">
+                    <h3>⌨️ Keyboard</h3>
+                    <p>Naviga con le frecce della tastiera per un'esperienza veloce</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔍 Zoom</h3>
+                    <p>Ingrandisci e riduci il contenuto per vedere i dettagli</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📑 Miniature</h3>
+                    <p>Pannello laterale con preview di tutte le pagine</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-section">
+            <h2>🚀 Opzioni di Hosting</h2>
+            <p>Per usare questo flipbook su LearnWorlds, devi prima hostarlo. Ecco alcune opzioni gratuite:</p>
+            
+            <h3 style="margin-top: 1.5rem; color: #4a5568;">1. GitHub Pages (Consigliato)</h3>
+            <div class="code-block">
+# 1. Crea un repository su GitHub
+# 2. Carica i file del flipbook
+# 3. Vai su Settings > Pages
+# 4. Seleziona la branch main
+# 5. Il tuo flipbook sarà disponibile su:
+https://tuo-username.github.io/nome-repo/pdf-flipbook/
+            </div>
+            
+            <h3 style="margin-top: 1.5rem; color: #4a5568;">2. Netlify</h3>
+            <div class="code-block">
+# 1. Vai su netlify.com
+# 2. Drag & drop la cartella pdf-flipbook
+# 3. Il tuo flipbook sarà disponibile su:
+https://tuo-sito.netlify.app/
+            </div>
+            
+            <h3 style="margin-top: 1.5rem; color: #4a5568;">3. Vercel</h3>
+            <div class="code-block">
+# 1. Vai su vercel.com
+# 2. Importa il progetto
+# 3. Deploy automatico
+# 4. Il tuo flipbook sarà disponibile su:
+https://tuo-sito.vercel.app/
+            </div>
+        </div>
+        
+        <div class="info-section">
+            <h2>🎨 Personalizzazione</h2>
+            <p>Puoi personalizzare colori, dimensioni e comportamento modificando i file CSS e JavaScript.</p>
+            
+            <h3 style="margin-top: 1.5rem; color: #4a5568;">Cambiare il PDF</h3>
+            <p>Modifica <code>flipbook.js</code> alla riga 235:</p>
+            <div class="code-block">
+const pdfUrl = 'il-tuo-file.pdf'; // &lt;-- Metti qui il tuo PDF
+            </div>
+            
+            <h3 style="margin-top: 1.5rem; color: #4a5568;">Cambiare i Colori</h3>
+            <p>Modifica <code>flipbook.css</code>:</p>
+            <div class="code-block">
+body {
+    background: linear-gradient(135deg, #TUO_COLORE_1 0%, #TUO_COLORE_2 100%);
+}
+            </div>
+        </div>
+        
+        <div class="info-section">
+            <h2>❓ FAQ</h2>
+            
+            <h3 style="margin-top: 1rem; color: #4a5568;">Il PDF non si carica?</h3>
+            <p>Assicurati che il percorso del PDF sia corretto e che il file sia accessibile. Se carichi da un dominio esterno, verifica le impostazioni CORS.</p>
+            
+            <h3 style="margin-top: 1rem; color: #4a5568;">Posso usare PDF di grandi dimensioni?</h3>
+            <p>Sì, ma PDF molto grandi (oltre 50MB) potrebbero richiedere più tempo per caricare. Considera di ottimizzare il PDF riducendo la risoluzione delle immagini.</p>
+            
+            <h3 style="margin-top: 1rem; color: #4a5568;">Funziona su mobile?</h3>
+            <p>Assolutamente! Il flipbook è completamente responsive e supporta touch/swipe per la navigazione.</p>
+            
+            <h3 style="margin-top: 1rem; color: #4a5568;">È gratuito?</h3>
+            <p>Sì, puoi usarlo liberamente per progetti personali e commerciali (Licenza MIT).</p>
+        </div>
+    </div>
+</body>
+</html>
