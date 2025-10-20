@@ -60,20 +60,22 @@ class PDFFlipbookTurn {
             this.book.append(`<div class="turn-page" data-page="${i}"></div>`);
         }
         
-        // Calcola dimensioni ottimali per formato orizzontale
+        // FORZA dimensioni orizzontali per embed
         const viewportWidth = window.innerWidth;
-        const viewportHeight = window.innerHeight - 150; // Spazio per header/footer
+        const viewportHeight = window.innerHeight - 120; // Minimo spazio header
         
-        // Forza formato orizzontale (16:9 ratio)
-        let bookWidth = Math.min(viewportWidth * 0.95, 1600);
-        let bookHeight = Math.min(viewportHeight * 0.85, bookWidth * 0.6);
+        // Calcola dimensioni per SEMPRE mostrare doppia pagina orizzontale
+        // Ratio 2:1 per doppia pagina (ogni pagina è 1:1.4 circa)
+        let bookWidth = viewportWidth * 0.98; // Quasi tutto lo schermo
+        let bookHeight = (bookWidth / 2) * 1.4; // Altezza proporzionale per pagine A4
         
-        // Assicura che sia sempre orizzontale
-        if (bookHeight > bookWidth * 0.7) {
-            bookHeight = bookWidth * 0.6;
+        // Se troppo alto, riduci in base all'altezza disponibile
+        if (bookHeight > viewportHeight * 0.9) {
+            bookHeight = viewportHeight * 0.9;
+            bookWidth = (bookHeight / 1.4) * 2;
         }
         
-        console.log('📐 Dimensioni libro:', bookWidth, 'x', bookHeight);
+        console.log('📐 Dimensioni libro (sempre orizzontale):', bookWidth, 'x', bookHeight);
         
         // Inizializza Turn.js
         this.book.turn({
@@ -85,7 +87,7 @@ class PDFFlipbookTurn {
             elevation: 50,
             duration: 600,
             pages: this.totalPages,
-            display: 'double', // Forza doppia pagina
+            display: 'double', // SEMPRE doppia pagina
             when: {
                 turning: (event, page, view) => {
                     console.log('🔄 Girando verso pagina', page);
@@ -155,12 +157,23 @@ class PDFFlipbookTurn {
                 viewport: scaledViewport
             }).promise;
             
-            // Svuota e aggiungi canvas
+            // Svuota e aggiungi canvas SENZA padding
             pageDiv.html('');
             pageDiv.css({
                 'background': 'white',
-                'overflow': 'hidden'
+                'overflow': 'hidden',
+                'padding': '0',
+                'margin': '0'
             });
+            
+            // Forza canvas a riempire tutto
+            $(canvas).css({
+                'width': '100%',
+                'height': '100%',
+                'object-fit': 'cover', // Riempie tutto senza spazi bianchi
+                'display': 'block'
+            });
+            
             pageDiv.append(canvas);
             
             // Aggiungi numero pagina

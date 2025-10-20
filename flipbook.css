@@ -73,7 +73,7 @@ body {
     justify-content: center;
     position: relative;
     overflow: hidden;
-    padding: 2rem;
+    padding: 0.25rem;
 }
 
 .flipbook-stage {
