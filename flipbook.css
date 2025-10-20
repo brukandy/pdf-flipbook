@@ -6,7 +6,7 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    background: linear-gradient(135deg, #001f3f 0%, #003d7a 100%);
+    background: #2b2b2b;
     overflow: hidden;
 }
 
@@ -65,7 +65,7 @@ body {
     transform: translateY(0);
 }
 
-/* Viewer principale */
+/* Viewer principale - Stile Issuu */
 .flipbook-viewer {
     flex: 1;
     display: flex;
@@ -73,7 +73,8 @@ body {
     justify-content: center;
     position: relative;
     overflow: hidden;
-    padding: 0.25rem;
+    padding: 0;
+    background: #2b2b2b;
 }
 
 .flipbook-stage {
@@ -558,13 +559,13 @@ body {
 
 /* Fullscreen */
 .flipbook-container:fullscreen {
-    background: linear-gradient(135deg, #001f3f 0%, #003d7a 100%);
+    background: #2b2b2b;
 }
 
 .flipbook-container:-webkit-full-screen {
-    background: linear-gradient(135deg, #001f3f 0%, #003d7a 100%);
+    background: #2b2b2b;
 }
 
 .flipbook-container:-moz-full-screen {
-    background: linear-gradient(135deg, #001f3f 0%, #003d7a 100%);
+    background: #2b2b2b;
 }

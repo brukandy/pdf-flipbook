@@ -60,19 +60,24 @@ class PDFFlipbookTurn {
             this.book.append(`<div class="turn-page" data-page="${i}"></div>`);
         }
         
-        // FORZA dimensioni orizzontali per embed
+        // Stile ISSUU: riempie tutto lo spazio disponibile
         const viewportWidth = window.innerWidth;
-        const viewportHeight = window.innerHeight - 120; // Minimo spazio header
+        const viewportHeight = window.innerHeight - 100; // Spazio minimo per header
         
-        // Calcola dimensioni per SEMPRE mostrare doppia pagina orizzontale
-        // Ratio 2:1 per doppia pagina (ogni pagina è 1:1.4 circa)
-        let bookWidth = viewportWidth * 0.98; // Quasi tutto lo schermo
-        let bookHeight = (bookWidth / 2) * 1.4; // Altezza proporzionale per pagine A4
+        // Calcola dimensioni per riempire al massimo (stile Issuu)
+        let bookWidth = viewportWidth;
+        let bookHeight = viewportHeight;
         
-        // Se troppo alto, riduci in base all'altezza disponibile
-        if (bookHeight > viewportHeight * 0.9) {
-            bookHeight = viewportHeight * 0.9;
-            bookWidth = (bookHeight / 1.4) * 2;
+        // Mantieni proporzioni A4 per doppia pagina (2:1.414)
+        const targetRatio = 2 / 1.414;
+        const currentRatio = bookWidth / bookHeight;
+        
+        if (currentRatio > targetRatio) {
+            // Troppo largo, riduci larghezza
+            bookWidth = bookHeight * targetRatio;
+        } else {
+            // Troppo alto, riduci altezza
+            bookHeight = bookWidth / targetRatio;
         }
         
         console.log('📐 Dimensioni libro (sempre orizzontale):', bookWidth, 'x', bookHeight);
